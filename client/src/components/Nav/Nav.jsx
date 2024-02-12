@@ -9,9 +9,9 @@ const Navbar = () => {
     <div>
       <ul class="nav-links">
         <li><a href="/home">Home</a></li>
-        <li><a href="/schedule">Experience</a></li>
-        <li><a href="/employees">Projects</a></li>
-        <li><a href="/about">Contact</a></li>
+        <li><a href="/schedule">Schedule</a></li>
+        <li><a href="/employees">Employee List</a></li>
+        <li><a href="/about">About us</a></li>
         <li><a href="/login">Login/Sign up</a></li>
 
       </ul>
