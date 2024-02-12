@@ -1,7 +1,7 @@
-import Nav from '../components/Nav'
 import React from 'react';
-import MyCalendar from '../components/Calendar.jsx';
-import Footer from '../components/Footer';
+import Nav from '../components/Nav/Nav.jsx'
+import MyCalendar from '../components/Calendar/Calendar.jsx';
+import Footer from '../components/Footer/Footer.js';
 
 const Calendar = () => {
   return (
