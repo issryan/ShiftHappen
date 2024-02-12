@@ -1,0 +1,154 @@
+/* Modal Styling */
+.modal-portal {
+    z-index: 9999;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+
+.modal-form {
+    background-color: rgb(243, 241, 241);
+    padding: 30px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.11);
+}
+
+.modal-input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.modal-button {
+    display: block;
+    width: 100%;
+    margin: 20px auto 0;
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #0077FF;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-button:hover {
+    background-color: #0066CC;
+}
+
+/*Weekday selector styling */
+.weekDays-selector input {
+    display: none !important;
+}
+
+.weekDays-selector label {
+    display: inline-block;
+    border-radius: 6px;
+    background: #e4e3e3;
+    height: 40px;
+    width: 40px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.weekDays-selector input[type=checkbox]:checked+label {
+    background: #2AD705;
+    color: #ffffff;
+}
+
+
+/* Style for the external list */
+.external-events {
+    color: white;
+    width: 200px;
+    height: calc(100vh - 70px);
+    padding: 10px;
+    overflow-y: scroll;
+}
+
+/* Style for the external list header */
+.external-events-header {
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    padding-top: 10px;
+}
+
+/* Style for each event in the external list */
+.fc-event {
+    margin: 10px;
+    cursor:move;
+    text-align: center;
+    background-color: #3788d8;
+    border: 1px #3766d8;
+    border-radius: 10px;
+    font-size: .9em;
+    color: white;
+    padding: 5px 10px;
+}
+
+/* Style for the calendar container */
+.calendar-container {
+    width: calc(100% - 115px);
+    height: calc(100vh - 70px);
+    margin-left: 20px;
+    display: flex;
+    padding-bottom: 70px;
+    padding-top: 20px;
+}
+
+.external-events-container {
+    width: 150px;
+    height: fit-content;
+    padding-right: 20px;
+    background-color: #eee;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    margin-right: 50px;
+    border-radius: 5px;
+}
+
+.calendar {
+    flex: 1;
+}
+
+/* Style for the buttons container */
+
+.button-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    justify-content: safe;
+}
+
+.button {
+    background-color: #0077FF;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: #0066CC;
+}
+
+.button:active {
+    background-color: #0066CC;
+    transform: translateY(2px);
+}
