@@ -12,7 +12,6 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route index element={<Home />} />
-            <Route path='/home' element={<Home />} />
             <Route path="/schedule" element={<MyCalendar/>} />
             <Route path="/employees" element={<Employees />} />
             <Route path="*" element={<NoPage />} />
