@@ -1,3 +1,37 @@
+
+
+/* Style for the buttons container */
+
+.button-container {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+    padding-top: 25px;
+}
+
+.button {
+    background-color: #0077FF;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.button:hover {
+    background-color: #0066CC;
+}
+
+.button:active {
+    background-color: #0066CC;
+    transform: translateY(2px);
+}
+
 /* Modal Styling */
 .modal-portal {
     z-index: 9999;
@@ -48,6 +82,13 @@
 }
 
 /*Weekday selector styling */
+
+.weekDays-selector {
+    display: flex;
+    padding: inherit;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 .weekDays-selector input {
     display: none !important;
 }
@@ -71,36 +112,47 @@
     color: #ffffff;
 }
 
+/*Table Styling*/
 
-
-/* Style for the buttons container */
-
-.button-container {
+table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .action-container{
     display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-    justify-content: safe;
-}
+    justify-content: space-around;
+  }
 
-.button {
-    background-color: #0077FF;
+  .edit-btn{
+    background-color: rgb(244, 222, 30);
+    border: black 5px;
+    
+  }
+
+  .delete-btn {
+    background-color: rgb(249, 67, 67);
+    border: black 5px;
+  }
+
+  button {
+    padding: 5px 10px;
+    margin: 4px 0;
     border: none;
-    color: white;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    border-radius: 4px;
     cursor: pointer;
-    border-radius: 5px;
-}
-
-.button:hover {
-    background-color: #0066CC;
-}
-
-.button:active {
-    background-color: #0066CC;
-    transform: translateY(2px);
-}
+  }

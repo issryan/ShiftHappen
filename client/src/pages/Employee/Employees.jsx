@@ -17,7 +17,6 @@ function App() {
     setEmployees(newEmployees);
   };
 
-  // Placeholder for edit functionality
   const editEmployee = (index) => {
     console.log('Edit functionality to be implemented', index);
   };
@@ -34,13 +33,29 @@ function App() {
           onClose={() => setIsModalOpen(false)}
           onSubmit={addEmployee}
         />
-        {employees.map((employee, index) => (
-          <div key={index}>
-            {employee.firstName} {employee.lastName} - {Object.entries(employee.availability).filter(([, value]) => value).map(([key]) => key).join(', ')}
-            <button onClick={() => editEmployee(index)}>Edit</button>
-            <button onClick={() => deleteEmployee(index)}>Delete</button>
-          </div>
-        ))}
+        <table>
+          <thead>
+            <tr>
+              <th>Employee</th>
+              <th>Availability</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {employees.map((employee) => (
+              <tr key={employee.id}>
+                <td>{`${employee.firstName} ${employee.lastName}`}</td>
+                <td>{Object.entries(employee.availability).filter(([day, available]) => available).map(([day]) => day).join(', ')}</td>
+                <td>
+                  <div className='action-container'>
+                  <button className='edit-btn' onClick={() => editEmployee(employee.id)}>Edit</button>
+                  <button className='delete-btn' onClick={() => deleteEmployee(employee.id)}>Delete</button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </>
   );
