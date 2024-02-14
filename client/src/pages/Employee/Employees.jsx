@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Nav from '/Users/ryanarafeh/Desktop/Projects/Shift/client/src/components/Nav/Nav.jsx';
 import EmployeeModal from './EmployeeModal';
 import './Employee.css'
+import { FaTrash, FaEdit } from 'react-icons/fa'; // Importing icons
 
 function App() {
   const [employees, setEmployees] = useState([]);
@@ -33,6 +34,7 @@ function App() {
           onClose={() => setIsModalOpen(false)}
           onSubmit={addEmployee}
         />
+        <div className='table-container'>
         <table>
           <thead>
             <tr>
@@ -48,14 +50,19 @@ function App() {
                 <td>{Object.entries(employee.availability).filter(([day, available]) => available).map(([day]) => day).join(', ')}</td>
                 <td>
                   <div className='action-container'>
-                  <button className='edit-btn' onClick={() => editEmployee(employee.id)}>Edit</button>
-                  <button className='delete-btn' onClick={() => deleteEmployee(employee.id)}>Delete</button>
+                    <button className='edit-btn' onClick={() => {/* Call edit function here */ }}>
+                      <FaEdit /> Edit
+                    </button>
+                    <button className='delete-btn' onClick={() => deleteEmployee(employee.id)}>
+                      <FaTrash /> Delete
+                    </button>
                   </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+        </div>
       </div>
     </>
   );

@@ -129,23 +129,20 @@ table {
     background-color: #f2f2f2;
   }
   
-  tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
   .action-container{
     display: flex;
     justify-content: space-around;
   }
 
   .edit-btn{
-    background-color: rgb(244, 222, 30);
+    background-color: yellow;
     border: black 5px;
     
   }
 
   .delete-btn {
-    background-color: rgb(249, 67, 67);
+    background-color:red;
+    color: white;
     border: black 5px;
   }
 
