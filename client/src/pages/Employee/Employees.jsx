@@ -7,20 +7,30 @@ import { FaTrash, FaEdit } from 'react-icons/fa'; // Importing icons
 function App() {
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editEmployeeId, setEditEmployeeId] = useState(null); // New state to track the ID of the employee being edited
 
-  const addEmployee = (employee) => {
-    setEmployees([...employees, employee]);
+  const handleEmployeeSubmit = (employeeData) => {
+    if (editEmployeeId) {
+      // Edit operation
+      setEmployees(employees.map(emp => emp.id === editEmployeeId ? { ...emp, ...employeeData } : emp));
+    } else {
+      // Add operation
+      const newEmployee = { id: Date.now(), ...employeeData };
+      setEmployees([...employees, newEmployee]);
+    }
+    setIsModalOpen(false);
+    setEditEmployeeId(null); // Reset after operation
   };
 
-  const deleteEmployee = (index) => {
-    const newEmployees = [...employees];
-    newEmployees.splice(index, 1);
-    setEmployees(newEmployees);
+  const deleteEmployee = (id) => {
+    setEmployees(employees.filter(employee => employee.id !== id));
+  };
+  
+  const startEdit = (id) => {
+    setEditEmployeeId(id);
+    setIsModalOpen(true);
   };
 
-  const editEmployee = (index) => {
-    console.log('Edit functionality to be implemented', index);
-  };
 
   return (
     <>
@@ -32,36 +42,37 @@ function App() {
         <EmployeeModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          onSubmit={addEmployee}
+          onSubmit={handleEmployeeSubmit}
+          editingEmployee={editEmployeeId ? employees.find(emp => emp.id === editEmployeeId) : null}
         />
         <div className='table-container'>
-        <table>
-          <thead>
-            <tr>
-              <th>Employee</th>
-              <th>Availability</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {employees.map((employee) => (
-              <tr key={employee.id}>
-                <td>{`${employee.firstName} ${employee.lastName}`}</td>
-                <td>{Object.entries(employee.availability).filter(([day, available]) => available).map(([day]) => day).join(', ')}</td>
-                <td>
-                  <div className='action-container'>
-                    <button className='edit-btn' onClick={() => {/* Call edit function here */ }}>
-                      <FaEdit /> Edit
-                    </button>
-                    <button className='delete-btn' onClick={() => deleteEmployee(employee.id)}>
-                      <FaTrash /> Delete
-                    </button>
-                  </div>
-                </td>
+          <table>
+            <thead>
+              <tr>
+                <th>Employee</th>
+                <th>Availability</th>
+                <th>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {employees.map((employee) => (
+                <tr key={employee.id}>
+                  <td>{`${employee.firstName} ${employee.lastName}`}</td>
+                  <td>{Object.entries(employee.availability).filter(([day, available]) => available).map(([day]) => day).join(', ')}</td>
+                  <td>
+                    <div className='action-container'>
+                      <button className='edit-btn' onClick={() => startEdit(employee.id)}>
+                        <FaEdit /> Edit
+                      </button>
+                      <button className='delete-btn' onClick={() => deleteEmployee(employee.id)}>
+                        <FaTrash /> Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </>

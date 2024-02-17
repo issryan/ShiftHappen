@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Employee.css'
 
-function EmployeeModal({ isOpen, onClose, onSubmit }) {
+function EmployeeModal({ isOpen, onClose, onSubmit, editingEmployee }) {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [availability, setAvailability] = useState({
@@ -13,9 +13,30 @@ function EmployeeModal({ isOpen, onClose, onSubmit }) {
     Saturday: false,
   });
 
-  if (!isOpen) {
+  useEffect(() => {
+    if (editingEmployee) {
+      setFirstName(editingEmployee.firstName);
+      setLastName(editingEmployee.lastName);
+      setAvailability(editingEmployee.availability);
+    } else {
+      // Reset the form state to default values if not editing
+      setFirstName('');
+      setLastName('');
+      setAvailability({
+        Monday: false,
+        Tuesday: false,
+        Wednesday: false,
+        Thursday: false,
+        Friday: false,
+        Saturday: false,
+      });
+    }
+  }, [editingEmployee]);
+  
+  if(!isOpen){
     return null;
   }
+
 
   const handleCheckboxChange = (event) => {
     setAvailability({
