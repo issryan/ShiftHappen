@@ -1,13 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Nav from '/Users/ryanarafeh/Desktop/Projects/Shift/client/src/components/Nav/Nav.jsx';
 import EmployeeModal from './EmployeeModal';
 import './Employee.css'
 import { FaTrash, FaEdit } from 'react-icons/fa'; // Importing icons
 
-function App() {
+function Employees() {
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editEmployeeId, setEditEmployeeId] = useState(null); // New state to track the ID of the employee being edited
+
+  useEffect(() => {
+    axios.get('http://localhost:5000/api/employees') 
+      .then(response => {
+        setEmployees(response.data);
+      })
+      .catch(error => {
+        console.error('There was an error fetching the employees:', error);
+      });
+  }, []);
 
   const handleEmployeeSubmit = (employeeData) => {
     if (editEmployeeId) {
@@ -25,7 +36,7 @@ function App() {
   const deleteEmployee = (id) => {
     setEmployees(employees.filter(employee => employee.id !== id));
   };
-  
+
   const startEdit = (id) => {
     setEditEmployeeId(id);
     setIsModalOpen(true);
@@ -79,4 +90,4 @@ function App() {
   );
 }
 
-export default App;
+export default Employees;
