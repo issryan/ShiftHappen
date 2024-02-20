@@ -3,7 +3,6 @@ import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
-import AddEventModal from './AddEventModal';
 import './Calendar.css'
 
 const MyCalendar = () => {
@@ -14,10 +13,9 @@ const MyCalendar = () => {
 
   // create references for checkbox and modal state
   const checkboxRef = useRef(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // create state for external events
-  const [externalEvents, setExternalEvents] = useState([]);
+  const [externalEvents] = useState([]);
 
   useEffect(() => {
     // get references for calendar, external events, and checkbox
@@ -63,31 +61,10 @@ const MyCalendar = () => {
     };
     
   }, [externalEvents]);
-
-  // function to add a new event to external events state
-  const handleAddEvent = (newEvent) => {
-    setExternalEvents([...externalEvents, { ...newEvent}]);
-  };
-
-  // function to clear all events from external events state
-  const handleClearEvents = () => {
-    setExternalEvents([]);
-  };
-
   
 
   return (
     <>
-      {/* buttons to add events and clear events */}
-      <div className="button-container">
-        <button className="button" onClick={() => setModalIsOpen(true)}>Add Employee</button>
-        <button className="button" onClick={handleClearEvents}>Clear All Employees</button>
-      </div>
-
-      {/* modal component for adding new events */}
-
-      <AddEventModal isOpen={modalIsOpen} onClose={() => setModalIsOpen(false)} onEventAdded={handleAddEvent} />
-
 
       {/* Display Container */}
 
