@@ -1,6 +1,6 @@
 import React from 'react';
 import './Nav.css';
-import logo from '/Users/ryanarafeh/Desktop/Projects/Shift/client/src/assets/shift-logo.png';
+import logo from '../../assets/shift-logo.png';
 
 const Navbar = () => {
   return (

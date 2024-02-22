@@ -1,0 +1,22 @@
+:root {
+    --text: #0c0b14;
+    --background: #f2f1fa;
+    --primary: #4234cd;
+    --secondary: #9289ef;
+    --accent: #5342f8;
+
+    /* Typography */
+    --font-color-primary: var(--text);
+    --font-color-secondary: var(--background);
+
+    /* Spacing and layout */
+    --spacing-unit: 1rem;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text);
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: var(--spacing-unit);
+}

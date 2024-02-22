@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Nav from '/Users/ryanarafeh/Desktop/Projects/Shift/client/src/components/Nav/Nav.jsx';
+import Nav from '../../components/Nav/Nav';
 import EmployeeModal from './EmployeeModal';
 import './Employee.css'
 import { FaTrash, FaEdit } from 'react-icons/fa';

@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
-import Home from './pages/Home'
+import Home from './pages/Home/Home'
 import MyCalendar from './pages/Calendar'
 import Employees from './pages/Employee/Employees'
 import NoPage from './pages/NoPage'
