@@ -1,4 +1,28 @@
 /* Style for the buttons container */
+.action-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.edit-btn {
+    background-color: yellow;
+    border: black 5px;
+
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: black 5px;
+}
+
+button {
+    padding: 5px 10px;
+    margin: 4px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
 .button-container {
     display: flex;
@@ -33,7 +57,8 @@
 /* Modal Styling */
 .modal-portal {
     z-index: 9999;
-    position: fixed; /* Use fixed instead of absolute to cover the entire viewport */
+    position: fixed;
+    /* Use fixed instead of absolute to cover the entire viewport */
     top: 0;
     left: 0;
     width: 100%;
@@ -42,7 +67,8 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.5); /* Optional: Adds an overlay effect */
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Optional: Adds an overlay effect */
 }
 
 .modal-form {
@@ -85,6 +111,7 @@
     justify-content: center;
     flex-wrap: wrap;
 }
+
 .weekDays-selector input {
     display: none !important;
 }
@@ -109,7 +136,7 @@
 }
 
 /*Table Styling*/
-body{
+body {
     font-family: Poppins, sans-serif;
     margin: 0px;
     display: flex;
@@ -117,7 +144,7 @@ body{
     align-items: center;
 }
 
-.table-widget{
+.table-widget {
     border-radius: 1rem;
     background: #29263D;
     padding: 1.5rem;
@@ -127,21 +154,21 @@ body{
     color: #ffffff;
 }
 
-.table-widget table{
+.table-widget table {
     max-width: fit-content;
     border-collapse: collapse;
 }
 
-.table-widget thead tr{
+.table-widget thead tr {
     background: #2E2B43;
 }
 
-.table-widget .caption{
+.table-widget .caption {
     display: flex;
     justify-content: space-between;
 }
 
-.table-widget .export-btn{
+.table-widget .export-btn {
     background: none;
     color: #ffffff;
     border: none;
@@ -153,34 +180,34 @@ body{
     gap: 0.5rem;
 }
 
-.table-widget .export-btn:hover{
+.table-widget .export-btn:hover {
     color: #ffd45e;
 }
 
-.table-widget .export-btn svg{
+.table-widget .export-btn svg {
     width: 2rem;
     height: 2rem;
 }
 
-.table-widget th{
+.table-widget th {
     padding: 1.25rem 1rem;
     font-size: 1.05rem;
     font-weight: 800;
     vertical-align: middle;
 }
 
-.table-widget td{
+.table-widget td {
     padding: 1rem;
     background: transparent;
     color: white;
     vertical-align: middle;
 }
 
-.table-widget tbody tr{
+.table-widget tbody tr {
     transition: all 0.2s;
 }
 
-.table-widget tbody tr:hover{
+.table-widget tbody tr:hover {
     cursor: pointer;
     background: #2e2b43;
 }

@@ -3,7 +3,7 @@ import axios from 'axios';
 import Nav from '/Users/ryanarafeh/Desktop/Projects/Shift/client/src/components/Nav/Nav.jsx';
 import EmployeeModal from './EmployeeModal';
 import './Employee.css'
-import { FaTrash, FaEdit } from 'react-icons/fa'; // Importing icons
+import { FaTrash, FaEdit } from 'react-icons/fa';
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
@@ -65,15 +65,15 @@ function Employees() {
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Availability</th>
-                <th>Action</th>
+                <th style={{ minWidth: '120px' }}>Name</th>
+                <th style={{ minWidth: '500px' }}>Availability</th>
+                <th style={{ minWidth: '120px' }}>Action</th>
               </tr>
             </thead>
             <tbody>
               {employees.map(employee => (
                 <tr key={employee.id}>
-                  <td className='team-member-profile'>
+                  <td className='team-member-profile' style={{ minWidth: '120px' }}>
                     <div className='profile-info'>
                       <div className='profile-info__name'>{`${employee.firstName} ${employee.lastName}`}</div>
                     </div>
@@ -85,10 +85,10 @@ function Employees() {
                       </span>
                     </div>
                   </td>
-                  <td>
+                  <td style={{ minWidth: '120px' }}>
                     <div className='action-container'>
-                      <button className='edit-btn' onClick={() => startEdit(employee.id)}>Edit</button>
-                      <button className='delete-btn' onClick={() => deleteEmployee(employee.id)}>Delete</button>
+                      <button className='edit-btn' onClick={() => startEdit(employee.id)}>{FaEdit}Edit</button>
+                      <button className='delete-btn' onClick={() => deleteEmployee(employee.id)}>{FaTrash}Delete</button>
                     </div>
                   </td>
                 </tr>
