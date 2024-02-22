@@ -11,7 +11,7 @@ function Employees() {
   const [editEmployeeId, setEditEmployeeId] = useState(null); // New state to track the ID of the employee being edited
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/employees') 
+    axios.get('http://localhost:5000/api/employees')
       .then(response => {
         setEmployees(response.data);
       })
@@ -56,35 +56,46 @@ function Employees() {
           onSubmit={handleEmployeeSubmit}
           editingEmployee={editEmployeeId ? employees.find(emp => emp.id === editEmployeeId) : null}
         />
-        <div className='table-container'>
+
+        <article className='table-widget'>
+          <div className='caption'>
+            <h2>Employees</h2>
+            <button className='export-btn' type='button'>Export</button>
+          </div>
           <table>
             <thead>
               <tr>
-                <th>Employee</th>
+                <th>Name</th>
                 <th>Availability</th>
-                <th>Actions</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {employees.map((employee) => (
+              {employees.map(employee => (
                 <tr key={employee.id}>
-                  <td>{`${employee.firstName} ${employee.lastName}`}</td>
-                  <td>{Object.entries(employee.availability).filter(([day, available]) => available).map(([day]) => day).join(', ')}</td>
+                  <td className='team-member-profile'>
+                    <div className='profile-info'>
+                      <div className='profile-info__name'>{`${employee.firstName} ${employee.lastName}`}</div>
+                    </div>
+                  </td>
+                  <td className='availability-cell' style={{ minWidth: '500px' }}>
+                    <div className='status'>
+                      <span>
+                        {Object.entries(employee.availability).filter(([day, available]) => available).map(([day]) => day).join(', ')}
+                      </span>
+                    </div>
+                  </td>
                   <td>
                     <div className='action-container'>
-                      <button className='edit-btn' onClick={() => startEdit(employee.id)}>
-                        <FaEdit /> Edit
-                      </button>
-                      <button className='delete-btn' onClick={() => deleteEmployee(employee.id)}>
-                        <FaTrash /> Delete
-                      </button>
+                      <button className='edit-btn' onClick={() => startEdit(employee.id)}>Edit</button>
+                      <button className='delete-btn' onClick={() => deleteEmployee(employee.id)}>Delete</button>
                     </div>
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-        </div>
+        </article>
       </div>
     </>
   );
