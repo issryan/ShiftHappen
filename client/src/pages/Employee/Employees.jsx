@@ -70,7 +70,7 @@ function Employees() {
                 <th style={{ minWidth: '120px' }}>Action</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className='body-container'>
               {employees.map(employee => (
                 <tr key={employee.id}>
                   <td className='team-member-profile' style={{ minWidth: '120px' }}>

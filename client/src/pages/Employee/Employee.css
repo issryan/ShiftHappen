@@ -136,6 +136,8 @@ button {
 }
 
 /*Table Styling*/
+
+/*flex messes up rest of web*/
 body {
     font-family: Poppins, sans-serif;
     margin: 0px;
@@ -143,6 +145,7 @@ body {
     justify-content: center;
     align-items: center;
 }
+/**/
 
 .table-widget {
     border-radius: 1rem;

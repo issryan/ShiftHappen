@@ -8,10 +8,8 @@ const Calendar = () => {
     <>
     <Nav/>
     <div>
-      <h1>My App</h1>
       <MyCalendar />
     </div>
-    <Footer/>
     </>
   );
 }
