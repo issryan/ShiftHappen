@@ -1,5 +1,5 @@
 import './Footer.css'
-import logo from '/Users/ryanarafeh/Desktop/Projects/Shift/client/src/assets/shift-logo.png';
+import logo from '../../assets/shift-logo.png';
 
 export default function Footer() {
     return (

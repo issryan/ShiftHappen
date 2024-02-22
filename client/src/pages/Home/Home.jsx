@@ -1,4 +1,4 @@
-import Nav from '/Users/ryanarafeh/Desktop/Projects/Shift/client/src/components/Nav/Nav.jsx'
+import Nav from '../../components/Nav/Nav'
 import './Home.css'
 import Footer from '../../components/Footer/Footer';
 
@@ -23,7 +23,6 @@ export default function Home() {
                     </div>
                 </section>
             </header>
-            <Footer/>
         </>
     )
 }
