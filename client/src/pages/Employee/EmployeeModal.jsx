@@ -54,6 +54,8 @@ function EmployeeModal({ isOpen, onClose, onSubmit, editingEmployee }) {
   return (
     <div className="modal-portal">
       <form onSubmit={handleSubmit} className="modal-form">
+        <h2>Create new employee</h2>
+        <div className='name-inputs'>
         <input
           type="text"
           placeholder="First Name"
@@ -70,6 +72,7 @@ function EmployeeModal({ isOpen, onClose, onSubmit, editingEmployee }) {
           onChange={(e) => setLastName(e.target.value)}
           required
         />
+        </div>
         <div className="weekDays-selector">
           {Object.keys(availability).map((day) => (
             <div key={day}>
@@ -85,7 +88,7 @@ function EmployeeModal({ isOpen, onClose, onSubmit, editingEmployee }) {
           ))}
         </div>
         <button type="submit" className="modal-button">Add Employee</button>
-        <button type="button" onClick={onClose} className="modal-button" style={{ backgroundColor: '#6c757d' }}>Cancel</button>
+        <button type="button" onClick={onClose} className="modal-button-close">Cancel</button>
       </form>
     </div>
   );

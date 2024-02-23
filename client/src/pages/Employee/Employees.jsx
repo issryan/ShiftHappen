@@ -44,8 +44,7 @@ function Employees() {
 
 
   return (
-    <>
-      <Nav />
+    <div className='body-container'>
       <div className="App">
         <div className="button-container">
           <button className="button" onClick={() => setIsModalOpen(true)}>Add Employee</button>
@@ -56,7 +55,6 @@ function Employees() {
           onSubmit={handleEmployeeSubmit}
           editingEmployee={editEmployeeId ? employees.find(emp => emp.id === editEmployeeId) : null}
         />
-
         <article className='table-widget'>
           <div className='caption'>
             <h2>Employees</h2>
@@ -70,7 +68,7 @@ function Employees() {
                 <th style={{ minWidth: '120px' }}>Action</th>
               </tr>
             </thead>
-            <tbody className='body-container'>
+            <tbody>
               {employees.map(employee => (
                 <tr key={employee.id}>
                   <td className='team-member-profile' style={{ minWidth: '120px' }}>
@@ -96,8 +94,11 @@ function Employees() {
             </tbody>
           </table>
         </article>
+        <div className="button-container">
+        <button>Create Schedule</button>
+        </div>
       </div>
-    </>
+    </div>
   );
 }
 
