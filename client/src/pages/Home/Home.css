@@ -14,43 +14,50 @@
 }
 
 .section__text {
-    flex-basis: 50%; 
+    flex-basis: 50%;
 }
 
 .title {
-    font-size: 2rem; 
-    color: #0c0b14; 
+    font-size: 2rem;
+    color: #0c0b14;
     margin-bottom: 1rem;
 }
 
 .section__text__p2 {
-    font-size: 1rem; 
-    color: #0c0b14; 
+    font-size: 1rem;
+    color: #0c0b14;
     margin-bottom: 2rem;
 }
 
 .btn-container {
-    text-align: left; 
+    text-align: left;
 }
 
 .cta-button {
     display: inline-block;
     padding: 0.75rem 1.5rem;
-    background-color: #4234cd; 
-    color: white; 
+    background-color: #4234cd;
+    color: white;
     text-decoration: none;
     border-radius: 4px;
     font-weight: bold;
+    transition: transform 0.5s ease;
 }
 
+.cta-button:hover {
+    transform: translateY(-5px);
+    color: white;
+}
+
+
 .section__pic-container {
-    flex-basis: 50%; 
+    flex-basis: 50%;
     display: flex;
-    justify-content: flex-end; 
+    justify-content: flex-end;
 }
 
 .section__pic-container img {
     max-width: 100%;
-    height: auto; 
+    height: auto;
     mix-blend-mode: multiply;
 }
