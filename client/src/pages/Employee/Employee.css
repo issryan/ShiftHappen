@@ -7,13 +7,25 @@
 .edit-btn {
     background-color: rgb(251, 251, 140);
     border: black 5px;
+}
 
+.edit-btn:hover {
+    background-color: rgb(227, 227, 127);
+    border: black 5px;
+    transition: ease-in-out .2s;
 }
 
 .delete-btn {
     background-color: red;
     color: white;
     border: black 5px;
+}
+
+.delete-btn:hover {
+    background-color: rgb(221, 0, 0);
+    color: white;
+    border: black 5px;
+    transition: ease-in-out .2s;
 }
 
 button {
@@ -37,7 +49,7 @@ button {
     border: none;
     cursor: pointer;
     font-weight: 600;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -47,6 +59,24 @@ button {
     color: #ffd45e;
     transition: ease-in-out 0.2s;
 }
+
+.button-create {
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.button-create:hover {
+    color: #ffd45e;
+    transition: ease-in-out 0.2s;
+}
+
 
 
 /* Modal Styling */

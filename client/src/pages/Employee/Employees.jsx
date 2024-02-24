@@ -69,7 +69,7 @@ function Employees() {
               </tr>
             </thead>
             <tbody>
-              {employees.map(employee => (
+              {employees.map (employee => (
                 <tr key={employee.id}>
                   <td className='team-member-profile' style={{ minWidth: '120px' }}>
                     <div className='profile-info'>
@@ -95,7 +95,9 @@ function Employees() {
           </table>
         </article>
         <div className="button-container">
-        <button>Create Schedule</button>
+          <a href="/schedule">
+            <button className='button-create'>Create Schedule</button>
+          </a>
         </div>
       </div>
     </div>

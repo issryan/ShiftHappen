@@ -86,7 +86,7 @@
 /* Style for each event in the external list */
 .fc-event {
     margin: 10px;
-    cursor:move;
+    cursor: move;
     text-align: center;
     background-color: #3788d8;
     border: 1px #3766d8;
@@ -94,6 +94,18 @@
     font-size: .9em;
     color: white;
     padding: 5px 10px;
+}
+
+.fc th {
+    background-color: #29263D;
+}
+
+.fc .fc-daygrid-day-frame {
+    background-color: #322f43;
+}
+
+.fc-toolbar-title {
+    color: #243141;
 }
 
 /* Style for the calendar container */

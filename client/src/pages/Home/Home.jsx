@@ -14,7 +14,7 @@ export default function Home() {
                         <h1 className="title">SHIFT HAPPENS</h1>
                         <p className="section__text__p2">Our app makes scheduling a breeze, turning the tedious task of lining up employee shifts into a quick, easy click. Just set your team's availability, hit generate, and watch a perfectly planned month unfold. No fuss, no muss—just more time for what really matters. Let's make scheduling simple together.</p>
                         <div className="btn-container">
-                            <a href="#get-started" class="cta-button">Get Started</a>
+                            <a href="/employees" class="cta-button">Get Started</a>
                         </div>
                         <div class="hero-content">
                         </div>
