@@ -12,4 +12,6 @@ mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true
 }, () => console.log("Connected to MongoDB"));
 
+app.use("/api/calendar", require("./controllers/CalendarController"));
+
 app.listen(5000, () => console.log("Server Started"));
