@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Employee.css'
+import axios from 'axios';
 
 function EmployeeModal({ isOpen, onClose, onSubmit, editingEmployee }) {
   const [firstName, setFirstName] = useState('');
@@ -32,8 +33,8 @@ function EmployeeModal({ isOpen, onClose, onSubmit, editingEmployee }) {
       });
     }
   }, [editingEmployee]);
-  
-  if(!isOpen){
+
+  if (!isOpen) {
     return null;
   }
 
@@ -45,10 +46,16 @@ function EmployeeModal({ isOpen, onClose, onSubmit, editingEmployee }) {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    onSubmit({ firstName, lastName, availability });
-    onClose();
+    try {
+      await axios.post('http://localhost:5001/api/employees', { firstName, lastName, availability });
+      // Handle success (e.g., showing a success message, closing the modal)
+      onClose();
+    } catch (error) {
+      // Handle error (e.g., showing an error message)
+      console.error(error);
+    }
   };
 
   return (
@@ -56,22 +63,22 @@ function EmployeeModal({ isOpen, onClose, onSubmit, editingEmployee }) {
       <form onSubmit={handleSubmit} className="modal-form">
         <h2>Create new employee</h2>
         <div className='name-inputs'>
-        <input
-          type="text"
-          placeholder="First Name"
-          className="modal-input"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          className="modal-input"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
+          <input
+            type="text"
+            placeholder="First Name"
+            className="modal-input"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            className="modal-input"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+          />
         </div>
         <div className="weekDays-selector">
           {Object.keys(availability).map((day) => (
