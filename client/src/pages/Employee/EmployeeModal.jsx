@@ -1,7 +1,6 @@
 //EmployeeModal.jsx
 import React, { useState, useEffect } from 'react';
 import './Employee.css'
-import axios from 'axios';
 
 function EmployeeModal({ isOpen, onClose, onSubmit, editingEmployee }) {
   const [firstName, setFirstName] = useState('');

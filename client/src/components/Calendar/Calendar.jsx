@@ -4,36 +4,45 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
 import './Calendar.css'
+import axios from 'axios';
 
 const MyCalendar = () => {
-  // create references for calendar and external events
   const calendarRef = useRef(null);
   const externalEventsRef = useRef(null);
-  
-
-  // create references for checkbox and modal state
   const checkboxRef = useRef(null);
-
-  // create state for external events
-  const [externalEvents] = useState([]);
+  const [externalEvents, setExternalEvents] = useState([]); // Updated to allow setting events
 
   useEffect(() => {
-    // get references for calendar, external events, and checkbox
+    // Fetch employees and set as external events
+    const fetchEmployees = async () => {
+      try {
+        const response = await axios.get('http://localhost:5001/api/employees');
+        const employeeEvents = response.data.map(employee => ({
+          id: employee._id, // Assuming your backend uses MongoDB
+          title: `${employee.firstName} ${employee.lastName}`
+        }));
+        setExternalEvents(employeeEvents);
+      } catch (error) {
+        console.error("Failed to fetch employees", error);
+      }
+    };
+
+    fetchEmployees();
+  }, []);
+
+  useEffect(() => {
     const calendarEl = calendarRef.current;
     const externalEventsEl = externalEventsRef.current;
     const checkbox = checkboxRef.current;
 
-    // create draggable object for external events
     const draggable = new Draggable(externalEventsEl, {
       itemSelector: '.fc-event',
       eventData: function (eventEl) {
-        return {
-          title: eventEl.innerText
-        };
+        let title = eventEl.innerText;
+        return { title };
       }
     });
 
-    // create calendar object with plugins and settings
     const calendar = new Calendar(calendarEl, {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
       headerToolbar: {
@@ -51,34 +60,23 @@ const MyCalendar = () => {
       events: externalEvents
     });
 
-    // render the calendar
     calendar.render();
 
-    // return a cleanup function to destroy the calendar and draggable objects
     return () => {
       calendar.destroy();
       draggable.destroy();
     };
-    
-  }, [externalEvents]);
-  
+  }, [externalEvents]); // Dependency array ensures this effect runs when externalEvents changes
 
   return (
     <>
-
-      {/* Display Container */}
-
       <div className="calendar-container">
-
-        {/* container for external events */}
         <div className="external-events-container" ref={externalEventsRef}>
           <div className="external-events-header">Employee List</div>
           {externalEvents.map(event => (
             <div key={event.id} className="fc-event">{event.title}</div>
           ))}
         </div>
-
-        {/* container for calendar */}
         <div className="calendar" ref={calendarRef}></div>
       </div>
     </>
