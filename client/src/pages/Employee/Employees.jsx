@@ -1,47 +1,64 @@
+//Employee.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Nav from '../../components/Nav/Nav';
 import EmployeeModal from './EmployeeModal';
-import './Employee.css'
+import './Employee.css';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
 function Employees() {
   const [employees, setEmployees] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editEmployeeId, setEditEmployeeId] = useState(null); // New state to track the ID of the employee being edited
+  const [editEmployeeId, setEditEmployeeId] = useState(null); // Define the state for editEmployeeId
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/employees')
-      .then(response => {
-        setEmployees(response.data);
-      })
-      .catch(error => {
-        console.error('There was an error fetching the employees:', error);
-      });
+    fetchEmployees();
   }, []);
 
-  const handleEmployeeSubmit = (employeeData) => {
-    if (editEmployeeId) {
-      // Edit operation
-      setEmployees(employees.map(emp => emp.id === editEmployeeId ? { ...emp, ...employeeData } : emp));
-    } else {
-      // Add operation
-      const newEmployee = { id: Date.now(), ...employeeData };
-      setEmployees([...employees, newEmployee]);
+  const fetchEmployees = async () => {
+    try {
+      const response = await axios.get('http://localhost:5001/api/employees');
+      setEmployees(response.data);
+    } catch (error) {
+      console.error("Failed to fetch employees", error);
     }
-    setIsModalOpen(false);
-    setEditEmployeeId(null); // Reset after operation
   };
 
-  const deleteEmployee = (id) => {
-    setEmployees(employees.filter(employee => employee.id !== id));
+  const handleEmployeeSubmit = async (employeeData) => {
+    if (editEmployeeId) {
+      try {
+        const response = await axios.put(`http://localhost:5001/api/employees/${editEmployeeId}`, employeeData);
+        const updatedEmployees = employees.map(emp => emp._id === editEmployeeId ? {...emp, ...response.data} : emp);
+        setEmployees(updatedEmployees);
+      } catch (error) {
+        console.error("Failed to update employee", error);
+      }
+    } else {
+      try {
+        const response = await axios.post('http://localhost:5001/api/employees', employeeData);
+        setEmployees([...employees, response.data]);
+      } catch (error) {
+        console.error("Failed to add employee", error);
+      }
+    }
+    setIsModalOpen(false); 
+    setEditEmployeeId(null); // Reset editEmployeeId after submission
+  };
+  
+
+  const deleteEmployee = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5001/api/employees/${id}`);
+      const updatedEmployees = employees.filter(employee => employee._id !== id); // Use _id for MongoDB documents
+      setEmployees(updatedEmployees);
+    } catch (error) {
+      console.error("Failed to delete employee", error);
+    }
   };
 
   const startEdit = (id) => {
-    setEditEmployeeId(id);
-    setIsModalOpen(true);
+    setEditEmployeeId(id); // Set the ID of the employee to be edited
+    setIsModalOpen(true); // Open the modal for editing
   };
-
 
   return (
     <div className='body-container'>
@@ -53,7 +70,7 @@ function Employees() {
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onSubmit={handleEmployeeSubmit}
-          editingEmployee={editEmployeeId ? employees.find(emp => emp.id === editEmployeeId) : null}
+          editingEmployee={editEmployeeId ? employees.find(emp => emp._id === editEmployeeId) : null} // Use _id for MongoDB documents
         />
         <article className='table-widget'>
           <div className='caption'>
@@ -69,8 +86,8 @@ function Employees() {
               </tr>
             </thead>
             <tbody>
-              {employees.map (employee => (
-                <tr key={employee.id}>
+              {employees.map(employee => (
+                <tr key={employee._id}> {/* Use _id for MongoDB documents */}
                   <td className='team-member-profile' style={{ minWidth: '120px' }}>
                     <div className='profile-info'>
                       <div className='profile-info__name'>{`${employee.firstName} ${employee.lastName}`}</div>
@@ -85,8 +102,8 @@ function Employees() {
                   </td>
                   <td style={{ minWidth: '120px' }}>
                     <div className='action-container'>
-                      <button className='edit-btn' onClick={() => startEdit(employee.id)}>{FaEdit}Edit</button>
-                      <button className='delete-btn' onClick={() => deleteEmployee(employee.id)}>{FaTrash}Delete</button>
+                      <button className='edit-btn' onClick={() => startEdit(employee._id)}><FaEdit />Edit</button> {/* Wrap icons correctly */}
+                      <button className='delete-btn' onClick={() => deleteEmployee(employee._id)}><FaTrash />Delete</button> {/* Wrap icons correctly */}
                     </div>
                   </td>
                 </tr>

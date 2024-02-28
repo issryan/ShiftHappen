@@ -1,3 +1,4 @@
+//EmployeeModal.jsx
 import React, { useState, useEffect } from 'react';
 import './Employee.css'
 import axios from 'axios';
@@ -48,19 +49,14 @@ function EmployeeModal({ isOpen, onClose, onSubmit, editingEmployee }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    try {
-      await axios.post('http://localhost:5001/api/employees', { firstName, lastName, availability });
-      // Handle success (e.g., showing a success message, closing the modal)
-      onClose();
-    } catch (error) {
-      // Handle error (e.g., showing an error message)
-      console.error(error);
-    }
-  };
+    onSubmit({ firstName, lastName, availability }); // Call the passed onSubmit function with the new employee data
+    onClose(); // Close the modal
+};
+
 
   return (
     <div className="modal-portal">
-      <form onSubmit={handleSubmit} className="modal-form">
+      <form onSubmit={handleSubmit} className="modal-form" method='post' action='/#'>
         <h2>Create new employee</h2>
         <div className='name-inputs'>
           <input
