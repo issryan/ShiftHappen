@@ -1,80 +1,97 @@
 import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
-import timeGridPlugin from '@fullcalendar/timegrid';
-import interactionPlugin, { Draggable } from '@fullcalendar/interaction';
-import './Calendar.css'
-import axios from 'axios';
+import interactionPlugin from '@fullcalendar/interaction';
+import './Calendar.css';
 
 const MyCalendar = () => {
   const calendarRef = useRef(null);
-  const externalEventsRef = useRef(null);
-  const checkboxRef = useRef(null);
-  const [externalEvents, setExternalEvents] = useState([]); // Updated to allow setting events
+  const [externalEvents, setExternalEvents] = useState([]);
+  const [uniqueEmployeeNames, setUniqueEmployeeNames] = useState([]); // For displaying unique employee names
+
+  const getFirstAndLastDayOfMonth = () => {
+    const date = new Date();
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+    return { firstDay, lastDay };
+  };
+
+  const addWeeks = (startDate, numberOfWeeks) => {
+    return new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 7 * numberOfWeeks);
+  };
+
+  const transformEmployeeAvailabilityToEvents = (employees) => {
+    const events = [];
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+    // Assuming the availability object is like { Monday: true, Tuesday: false, ... }
+    employees.forEach(employee => {
+      daysOfWeek.forEach((day, index) => {
+        if (employee.availability[day]) {
+          // For simplicity, let's just create an event on the next occurrence of each day
+          let date = new Date(); // Start from today
+          date.setDate(date.getDate() + ((index + 7 - date.getDay()) % 7)); // Get next occurrence of the day
+          if (date.getDay() !== index) date.setDate(date.getDate() + 7); // Ensure it's the next week
+
+          // Create an event for the next 4 occurrences (4 weeks)
+          for (let i = 0; i < 4; i++) {
+            events.push({
+              title: `${employee.firstName} ${employee.lastName}`,
+              start: new Date(date.getFullYear(), date.getMonth(), date.getDate() + i * 7).toISOString().split('T')[0],
+            });
+          }
+        }
+      });
+    });
+
+    return events;
+  };
+
 
   useEffect(() => {
-    // Fetch employees and set as external events
-    const fetchEmployees = async () => {
+    const fetchEmployeesAndPrepareEvents = async () => {
       try {
         const response = await axios.get('http://localhost:5001/api/employees');
-        const employeeEvents = response.data.map(employee => ({
-          id: employee._id, // Assuming your backend uses MongoDB
-          title: `${employee.firstName} ${employee.lastName}`
-        }));
-        setExternalEvents(employeeEvents);
+        const events = transformEmployeeAvailabilityToEvents(response.data);
+        setExternalEvents(events);
+        // Extract unique employee names for the external events container
+        const uniqueNames = Array.from(new Set(response.data.map(emp => `${emp.firstName} ${emp.lastName}`)));
+        setUniqueEmployeeNames(uniqueNames);
       } catch (error) {
         console.error("Failed to fetch employees", error);
       }
     };
 
-    fetchEmployees();
+    fetchEmployeesAndPrepareEvents();
   }, []);
 
   useEffect(() => {
     const calendarEl = calendarRef.current;
-    const externalEventsEl = externalEventsRef.current;
-    const checkbox = checkboxRef.current;
-
-    const draggable = new Draggable(externalEventsEl, {
-      itemSelector: '.fc-event',
-      eventData: function (eventEl) {
-        let title = eventEl.innerText;
-        return { title };
-      }
-    });
 
     const calendar = new Calendar(calendarEl, {
-      plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+      plugins: [dayGridPlugin, interactionPlugin],
+      initialView: 'dayGridMonth',
       headerToolbar: {
-        left: '',
+        left: 'prev,next today',
         center: 'title',
-        right: 'prev,next today'
-      },
-      editable: true,
-      droppable: true,
-      drop: function (info) {
-        if (checkbox && checkbox.checked) {
-          info.draggedEl.parentNode.removeChild(info.draggedEl);
-        }
+        right: 'dayGridMonth,timeGridWeek,timeGridDay'
       },
       events: externalEvents
     });
 
     calendar.render();
 
-    return () => {
-      calendar.destroy();
-      draggable.destroy();
-    };
-  }, [externalEvents]); // Dependency array ensures this effect runs when externalEvents changes
+    return () => calendar.destroy();
+  }, [externalEvents]);
 
   return (
     <>
       <div className="calendar-container">
-        <div className="external-events-container" ref={externalEventsRef}>
+        <div className="external-events-container">
           <div className="external-events-header">Employee List</div>
-          {externalEvents.map(event => (
-            <div key={event.id} className="fc-event">{event.title}</div>
+          {uniqueEmployeeNames.map((name, index) => (
+            <div key={index} className="fc-event">{name}</div>
           ))}
         </div>
         <div className="calendar" ref={calendarRef}></div>
