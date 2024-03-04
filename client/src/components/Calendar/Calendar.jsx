@@ -67,7 +67,17 @@ const MyCalendar = () => {
         center: 'title',
         right: 'prev,next today'
       },
-      events: externalEvents
+      events: externalEvents,
+      eventClick: function(info) {
+        //give user prompt to confirm delete event
+        const isConfirmed = window.confirm('Are you sure you want to delete?');
+        if(isConfirmed){
+          //remove event
+          info.event.remove();
+
+          setExternalEvents(currentEvents => currentEvents.filter(event => event.start !== info.event.startStr));
+        }
+      }
     });
 
     calendar.render();
