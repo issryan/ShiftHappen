@@ -10,16 +10,6 @@ const MyCalendar = () => {
   const [externalEvents, setExternalEvents] = useState([]);
   const [uniqueEmployeeNames, setUniqueEmployeeNames] = useState([]); // For displaying unique employee names
 
-  const getFirstAndLastDayOfMonth = () => {
-    const date = new Date();
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
-    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
-    return { firstDay, lastDay };
-  };
-
-  const addWeeks = (startDate, numberOfWeeks) => {
-    return new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 7 * numberOfWeeks);
-  };
 
   const transformEmployeeAvailabilityToEvents = (employees) => {
     const events = [];
@@ -73,9 +63,9 @@ const MyCalendar = () => {
       plugins: [dayGridPlugin, interactionPlugin],
       initialView: 'dayGridMonth',
       headerToolbar: {
-        left: 'prev,next today',
+        left: '',
         center: 'title',
-        right: 'dayGridMonth,timeGridWeek,timeGridDay'
+        right: 'prev,next today'
       },
       events: externalEvents
     });
