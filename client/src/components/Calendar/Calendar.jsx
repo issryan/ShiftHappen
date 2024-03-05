@@ -7,11 +7,11 @@ import './Calendar.css';
 
 const MyCalendar = () => {
   const calendarRef = useRef(null);
-  const [externalEvents, setExternalEvents] = useState([]);
-  const [uniqueEmployeeNames, setUniqueEmployeeNames] = useState([]); // For displaying unique employee names
+  // Removed externalEvents and uniqueEmployeeNames as they are no longer needed for display
 
-
-  const transformEmployeeAvailabilityToEvents = (employees) => {
+  // Helper function to transform employee availability into a format suitable for your API, if needed
+  //function to calculate the dates of availability and repeat for 4 weeks.
+  const transformEmployeeAvailabilityToScheduleData = (employees) => {
     const events = [];
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -38,22 +38,27 @@ const MyCalendar = () => {
     return events;
   };
 
+  const sendScheduleDataToDatabase = async (scheduleData) => {
+    try {
+      await axios.post('http://localhost:5001/api/schedules', scheduleData);
+      console.log('Schedule data successfully sent to the database');
+    } catch (error) {
+      console.error("Failed to send schedule data", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchEmployeesAndPrepareEvents = async () => {
+    const fetchEmployeesAndPrepareAndSendSchedules = async () => {
       try {
         const response = await axios.get('http://localhost:5001/api/employees');
-        const events = transformEmployeeAvailabilityToEvents(response.data);
-        setExternalEvents(events);
-        // Extract unique employee names for the external events container
-        const uniqueNames = Array.from(new Set(response.data.map(emp => `${emp.firstName} ${emp.lastName}`)));
-        setUniqueEmployeeNames(uniqueNames);
+        const scheduleData = transformEmployeeAvailabilityToScheduleData(response.data);
+        sendScheduleDataToDatabase(scheduleData);
       } catch (error) {
-        console.error("Failed to fetch employees", error);
+        console.error("Failed to fetch employees or send data", error);
       }
     };
 
-    fetchEmployeesAndPrepareEvents();
+    fetchEmployeesAndPrepareAndSendSchedules();
   }, []);
 
   useEffect(() => {
@@ -68,44 +73,17 @@ const MyCalendar = () => {
         center: 'title',
         right: 'prev,next today'
       },
-      events: externalEvents,
-      eventClick: function (info) {
-        const isConfirmed = window.confirm('Are you sure you want to delete?');
-        if (isConfirmed) {
-          const eventId = info.event.id; // Assuming each event has a unique ID
-
-          // Remove event from the calendar UI immediately for a good user experience
-          info.event.remove();
-
-          // Send a request to the server to delete the event from the database
-          axios.delete(`http://localhost:5001/api/events/${eventId}`)
-            .then(response => {
-              // You might want to do something on successful deletion,
-              // like showing a confirmation message
-            })
-            .catch(error => {
-              console.error("Failed to delete event", error);
-              // Since the deletion failed, you might want to inform the user
-              // and possibly add the event back to the calendar
-            });
-        }
-      }
+      // Removed the events: externalEvents since we are no longer displaying employees on the calendar
     });
 
     calendar.render();
 
     return () => calendar.destroy();
-  }, [externalEvents]);
+  }, []); // Removed the dependency on externalEvents since it's no longer used
 
   return (
     <>
       <div className="calendar-container">
-        <div className="external-events-container">
-          <div className="external-events-header">Employee List</div>
-          {uniqueEmployeeNames.map((name, index) => (
-            <div key={index} className="fc-event">{name}</div>
-          ))}
-        </div>
         <div className="calendar" ref={calendarRef}></div>
       </div>
     </>
