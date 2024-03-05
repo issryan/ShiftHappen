@@ -62,6 +62,7 @@ const MyCalendar = () => {
     const calendar = new Calendar(calendarEl, {
       plugins: [dayGridPlugin, interactionPlugin],
       initialView: 'dayGridMonth',
+      editable: true,
       headerToolbar: {
         left: '',
         center: 'title',
