@@ -69,14 +69,25 @@ const MyCalendar = () => {
         right: 'prev,next today'
       },
       events: externalEvents,
-      eventClick: function(info) {
-        //give user prompt to confirm delete event
+      eventClick: function (info) {
         const isConfirmed = window.confirm('Are you sure you want to delete?');
-        if(isConfirmed){
-          //remove event
+        if (isConfirmed) {
+          const eventId = info.event.id; // Assuming each event has a unique ID
+
+          // Remove event from the calendar UI immediately for a good user experience
           info.event.remove();
 
-          setExternalEvents(currentEvents => currentEvents.filter(event => event.start !== info.event.startStr));
+          // Send a request to the server to delete the event from the database
+          axios.delete(`http://localhost:5001/api/events/${eventId}`)
+            .then(response => {
+              // You might want to do something on successful deletion,
+              // like showing a confirmation message
+            })
+            .catch(error => {
+              console.error("Failed to delete event", error);
+              // Since the deletion failed, you might want to inform the user
+              // and possibly add the event back to the calendar
+            });
         }
       }
     });

@@ -3,12 +3,19 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const Employee = require('./models/Employee');
+const employeeRoutes = require('./routes/employeeRoutes'); 
+const scheduleRoutes = require('./routes/scheduleRoutes'); 
+
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+//ROUTES
+app.use('/api/employees', employeeRoutes);
+app.use('/api/schedules', scheduleRoutes);
+
 
 const PORT = process.env.PORT || 5001;
 
@@ -22,56 +29,5 @@ mongoose.connect(process.env.MONGODB_URI, {
 })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
-
-
-//ROUTES
-
-//get request
-app.get('/api/employees', async (req, res) => {
-    try {
-        const employees = await Employee.find();
-        res.json(employees);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
-// POST request to add a new employee
-app.post('/api/employees', async (req, res) => {
-    try {
-        const newEmployee = new Employee(req.body);
-        const savedEmployee = await newEmployee.save();
-        res.status(201).json(savedEmployee);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
-});
-
-//edit request
-app.put('/api/employees/:id', async (req, res) => {
-    try {
-      const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id, req.body, { new: true });
-      if (!updatedEmployee) {
-        return res.status(404).json({ message: 'Employee not found' });
-      }
-      res.json(updatedEmployee);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  });
-  
-// Delete request
-app.delete('/api/employees/:id', async (req, res) => {
-    try {
-      const deletedEmployee = await Employee.findByIdAndDelete(req.params.id);
-      if (!deletedEmployee) {
-        return res.status(404).json({ message: 'Employee not found' });
-      }
-      res.json({ message: 'Employee deleted successfully' });
-    } catch (error) {
-      res.status(500).json({ message: error.message });
-    }
-  });
-  
 
 
