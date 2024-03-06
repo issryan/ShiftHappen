@@ -1,35 +1,35 @@
 const express = require('express');
 const router = express.Router();
-const Schedule = require('../models/Schedule'); 
+const Event = require('../models/Events'); 
 
-// POST route to create a schedule
+// POST route to create a Event
 router.post('/', async (req, res) => {
     const { employeeId, date, type, originalDate } = req.body;
     try {
-        const newSchedule = new Schedule({ employeeId, date, type, originalDate });
-        const savedSchedule = await newSchedule.save();
-        res.status(201).json(savedSchedule);
+        const newEvent = new Event({ employeeId, date, type, originalDate });
+        const savedEvent = await newEvent.save();
+        res.status(201).json(savedEvent);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 });
 
-// PUT route to update a schedule
+// PUT route to update a Event
 router.put('/:id', async (req, res) => {
     const { date, type, originalDate } = req.body;
     try {
-        const updatedSchedule = await Schedule.findByIdAndUpdate(req.params.id, { date, type, originalDate }, { new: true });
-        res.json(updatedSchedule);
+        const updatedEvent = await Event.findByIdAndUpdate(req.params.id, { date, type, originalDate }, { new: true });
+        res.json(updatedEvent);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 });
 
-// DELETE route to remove a schedule
+// DELETE route to remove a Event
 router.delete('/:id', async (req, res) => {
     try {
-        await Schedule.findByIdAndDelete(req.params.id);
-        res.json({ message: 'Schedule deleted successfully' });
+        await Event.findByIdAndDelete(req.params.id);
+        res.json({ message: 'Event deleted successfully' });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

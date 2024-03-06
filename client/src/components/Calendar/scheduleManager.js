@@ -32,7 +32,7 @@ const transformEmployeeAvailabilityToScheduleData = (employees) => {
 // Function to send schedules to the database
 export const sendSchedulesToDatabase = async (schedules) => {
     try {
-        await axios.post('http://localhost:5001/api/schedules', schedules);
+        await axios.post('http://localhost:5001/api/events', schedules);
         console.log('Schedules successfully sent to the database');
     } catch (error) {
         console.error("Failed to send schedules", error);
@@ -42,7 +42,7 @@ export const sendSchedulesToDatabase = async (schedules) => {
 // Function to fetch schedules from the database
 export const fetchSchedulesFromDatabase = async () => {
     try {
-        const response = await axios.get('http://localhost:5001/api/schedules');
+        const response = await axios.get('http://localhost:5001/api/events');
         return response.data; // Assuming this is the format that FullCalendar can use
     } catch (error) {
         console.error("Failed to fetch schedules", error);
