@@ -1,6 +1,6 @@
 import Nav from '../../components/Nav/Nav'
 import './Home.css'
-import clipart from '../../assets/calendar-illustration.png'
+import clipart from '../../assets/calendar-illustration.svg'
 import Footer from '../../components/Footer/Footer';
 
 
