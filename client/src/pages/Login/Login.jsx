@@ -12,7 +12,7 @@ export default function Login() {
             <body>
                 <div class="background"></div>
                 <div class="card">
-                    <img class="logo" src={logo} />
+                    <img class="logo" src={logo} alt='logo' />
                     <h2>Create Account</h2>
                     <form class="form">
                         <input type="email" placeholder="Email" />
@@ -21,7 +21,7 @@ export default function Login() {
                     </form>
                     <footer>
                         Existing users, sign in
-                        <a href="#">here</a>
+                        <a href="#/">here</a>
                     </footer>
                 </div>
             </body>
