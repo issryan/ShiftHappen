@@ -4,7 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const employeeRoutes = require('./routes/employeeRoutes'); 
-const eventRoutes = require('./routes/eventRoutes');
+const eventRoutes = require('./routes/eventRoutes'); 
 
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(express.json());
 
 //ROUTES
 app.use('/api/employees', employeeRoutes);
-app.use('/api', eventRoutes);
+app.use('/api/', eventRoutes);
 
 
 const PORT = process.env.PORT || 5001;

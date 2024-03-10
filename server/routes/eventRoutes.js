@@ -1,28 +1,20 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 const Event = require('../models/Events');
-const eventController = require('../controllers/eventController');
+const moment = require('moment');
 
-router.post('/events/generate', eventController.createEmployeeEvents);
+router.post('/create-event', async (req, res) => {
+  const event = Event(req.body);
+  await event.save();
+  res.sendStatus(201);
+})
 
-// Endpoint to get events for a specific month and employee
-router.get('/events/:employeeId/:year/:month', async (req, res) => {
-  const { employeeId, year, month } = req.params;
-  const startDate = new Date(year, month - 1, 1);
-  const endDate = new Date(year, month, 0);
+router.get('/get-event', async (req, res) => {
+  const events = await Event.find({
+    start: {$gte: moment(req.query.start).toDate()},
+    end: {$lte: moment(req.query.end).toDate()}
+  });
 
-  try {
-    const events = await Event.find({
-      employeeId,
-      start: {
-        $gte: startDate,
-        $lt: endDate
-      }
-    });
-    res.json(events);
-  } catch (error) {
-    res.status(500).send(error);
-  }
+  res.sendStatus(events);
 });
 
 module.exports = router;
