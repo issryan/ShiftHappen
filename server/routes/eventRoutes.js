@@ -1,19 +1,15 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 const Event = require('../models/Events');
 
-
-router.get('/forCalendar', async (req, res) => {
-  const { start, end } = req.query;
+// GET request to fetch events
+router.get('/', async (req, res) => {
   try {
-      const events = await Event.find({
-          start: { $gte: new Date(start), $lt: new Date(end) },
-      });
+      const events = await Event.find();
       res.json(events);
   } catch (error) {
-      res.status(500).send({ message: "Error fetching events", error });
+      res.status(500).json({ message: error.message });
   }
 });
-
-
 
 module.exports = router;

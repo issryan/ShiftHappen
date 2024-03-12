@@ -14,7 +14,7 @@ app.use(express.json());
 
 //ROUTES
 app.use('/api/employees', employeeRoutes);
-app.use('/api', eventRoutes); 
+app.use('/api/events', eventRoutes); 
 
 
 const PORT = process.env.PORT || 5001;

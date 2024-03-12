@@ -1,48 +1,28 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Calendar } from '@fullcalendar/core';
+import React, { useEffect, useState } from 'react';
+import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import './Calendar.css';
 
 const MyCalendar = () => {
-  const calendarRef = useRef(null);
-  const [uniqueEmployeeNames] = useState([]); // For displaying unique employee names
-
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    const calendarEl = calendarRef.current;
-    const calendar = new Calendar(calendarEl, {
-      plugins: [dayGridPlugin, interactionPlugin],
-      initialView: 'dayGridMonth',
-      headerToolbar: {
-        left: '',
-        center: 'title',
-        right: 'prev,next today'
-      },
-      events: function (fetchInfo, successCallback, failureCallback) {
-        fetch(`/api/eventsInRange?start=${fetchInfo.startStr}&end=${fetchInfo.endStr}`)
-          .then(response => response.json())
-          .then(events => successCallback(events))
-          .catch(error => failureCallback(error));
-      }
-    });
+    const fetchEvents = async () => {
+      const res = await fetch('http://localhost:5001/api/events');
+      const data = await res.json();
+      setEvents(data);
+    };
 
-    calendar.render();
-    return () => calendar.destroy();
+    fetchEvents();
   }, []);
 
   return (
-    <>
-      <div className="calendar-container">
-        <div className="external-events-container">
-          <div className="external-events-header">Employee List</div>
-          {uniqueEmployeeNames.map((name, index) => (
-            <div key={index} className="fc-event">{name}</div>
-          ))}
-        </div>
-        <div className="calendar" ref={calendarRef}></div>
-      </div>
-    </>
+    <FullCalendar
+      plugins={[dayGridPlugin, interactionPlugin]}
+      initialView="dayGridMonth"
+      events={events}
+      editable={true}
+    />
   );
 };
 
