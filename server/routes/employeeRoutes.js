@@ -47,7 +47,6 @@ router.post('/', async (req, res) => {
         title: `${firstName} ${lastName}`,
         start: date,
         employeeId: employee._id,
-        allday: true
       }));
   
       // Save events to the database
@@ -74,15 +73,15 @@ router.put('/:id', async (req, res) => {
 
 // DELETE request to delete an employee
 router.delete('/:id', async (req, res) => {
-    try {
-        const deletedEmployee = await Employee.findByIdAndDelete(req.params.id);
-        if (!deletedEmployee) {
-            return res.status(404).json({ message: 'Employee not found' });
-        }
-        res.json({ message: 'Employee deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
+  try {
+      const deletedEmployee = await Employee.findByIdAndDelete(req.params.id);
+      if (!deletedEmployee) {
+          return res.status(404).json({ message: 'Employee not found' });
+      }
+      res.json({ message: 'Employee deleted successfully' });
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
 });
 
 module.exports = router;
