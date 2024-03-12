@@ -17,9 +17,10 @@ const MyCalendar = () => {
     try {
       const response = await axios.get('http://localhost:5001/api/events');
       const formattedEvents = response.data.map(event => ({
-        id: event._id, // Assuming _id is directly accessible and correctly formatted as a string
+        id: event._id,
         title: event.title,
-        start: new Date(event.start), // Converts to a Date object FullCalendar can work with
+        start: event.start,
+        allDay: true
       }));
       setEvents(formattedEvents);
     } catch (error) {
@@ -40,13 +41,13 @@ const MyCalendar = () => {
         center: 'title',
         right: 'prev,next today'
       },
-      events,
+      events: events,
       editable: true,
+      // delete event function
       eventClick: function (info) {
         const deleteMsg = window.confirm("Do you want to delete this event?");
         if (deleteMsg) {
           const eventId = info.event.id;
-          // Use axios.delete to send a DELETE request
           axios.delete(`http://localhost:5001/api/events/${eventId}`)
             .then(response => {
               console.log("Event deleted:", response.data.message);
@@ -58,7 +59,7 @@ const MyCalendar = () => {
               console.error("Failed to delete event:", error);
             });
         }
-      }
+      },
     });
 
     calendar.render();

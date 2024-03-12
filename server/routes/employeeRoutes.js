@@ -47,6 +47,7 @@ router.post('/', async (req, res) => {
         title: `${firstName} ${lastName}`,
         start: date,
         employeeId: employee._id,
+        allDay: true
       }));
   
       // Save events to the database
