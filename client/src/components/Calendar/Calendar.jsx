@@ -28,7 +28,17 @@ const MyCalendar = () => {
     }
   };
 
-
+  const updateEventInDatabase = async (eventId, newStart, newEnd) => {
+    try {
+      await axios.put(`http://localhost:5001/api/events/${eventId}`, {
+        start: newStart,
+        end: newEnd,
+      });
+      console.log("Event updated successfully");
+    } catch (error) {
+      console.error("Error updating event", error);
+    }
+  };  
 
   useEffect(() => {
     const calendarEl = calendarRef.current;
@@ -60,6 +70,17 @@ const MyCalendar = () => {
             });
         }
       },
+
+      //update event function by drag and drop
+      eventDrop: function(info) {
+        const { event } = info;
+        const newStart = event.start;
+        const newEnd = event.end; // May be null if not a timed event
+      
+        // Call a function to handle the event update
+        updateEventInDatabase(event.id, newStart, newEnd);
+      }
+      
     });
 
     calendar.render();
