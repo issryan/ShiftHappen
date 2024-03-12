@@ -48,7 +48,7 @@ function Employees() {
   const deleteEmployee = async (id) => {
     try {
       await axios.delete(`http://localhost:5001/api/employees/${id}`);
-      const updatedEmployees = employees.filter(employee => employee._id !== id); // Use _id for MongoDB documents
+      const updatedEmployees = employees.filter(employee => employee._id !== id); 
       setEmployees(updatedEmployees);
     } catch (error) {
       console.error("Failed to delete employee", error);
