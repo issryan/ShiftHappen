@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
       const events = eventDates.map(date => ({
         title: `${firstName} ${lastName}`,
         start: date,
-        employeeId: employee._id,
+        employee: employee._id,
         allDay: true
       }));
   
@@ -75,14 +75,23 @@ router.put('/:id', async (req, res) => {
 // DELETE request to delete an employee
 router.delete('/:id', async (req, res) => {
   try {
-      const deletedEmployee = await Employee.findByIdAndDelete(req.params.id);
-      if (!deletedEmployee) {
-          return res.status(404).json({ message: 'Employee not found' });
-      }
-      res.json({ message: 'Employee deleted successfully' });
+    const employeeId = req.params.id;
+    console.log("Deleting events for employeeId:", employeeId);
+
+    // First, delete all events associated with this employee
+    await Event.deleteMany({ employee: employeeId });
+
+    // Then, delete the employee
+    const deletedEmployee = await Employee.findByIdAndDelete(employeeId);
+    if (!deletedEmployee) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    res.json({ message: 'Employee and associated events deleted successfully' });
   } catch (error) {
-      res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
+
 
 module.exports = router;

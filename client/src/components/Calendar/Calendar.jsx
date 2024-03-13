@@ -20,7 +20,7 @@ const MyCalendar = () => {
         id: event._id,
         title: event.title,
         start: event.start,
-        allDay: true
+        allDay: true,
       }));
       setEvents(formattedEvents);
     } catch (error) {
