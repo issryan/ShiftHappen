@@ -81,42 +81,53 @@ router.post('/', async (req, res) => {
 
 // PUT request to update an employee and their equivalent events
 router.put('/:id', async (req, res) => {
-  const { availability } = req.body; // Assuming availability is part of the request
+  const { availability } = req.body;
   try {
     const employee = await Employee.findById(req.params.id);
     if (!employee) {
       return res.status(404).json({ message: 'Employee not found' });
     }
 
-    //compare old and new availabilities to determine changes
+    // Compare old and new availabilities to determine changes
     const { addedDays, removedDays } = compareAvailabilities(employee.availability, availability);
 
-    //handle removed days and delete events on those days
+    // Handle removed days and delete events on those days
     for (const day of removedDays) {
       await Event.deleteMany({
         employee: employee._id,
       });
     }
 
-    //handle added days and create new events for these days
-    const newEventDates = calculateEventDates(availability);
+    // Before handling added days, fetch existing events to avoid duplications
+    const existingEvents = await Event.find({ employee: employee._id });
+    const existingEventDates = existingEvents.map(event => event.start.toISOString().split('T')[0]);
+
+    // Handle added days and create new events for these days if they don't already exist
+    const newEventDates = calculateEventDates(availability).filter(date => {
+      const isoDate = date.toISOString().split('T')[0];
+      return !existingEventDates.includes(isoDate); // Filter out dates that already have events
+    });
+
     const newEvents = newEventDates.map(date => ({
       title: `${employee.firstName} ${employee.lastName}`,
       start: date,
       employee: employee._id,
-      allDay: true
+      allDay: true,
     }));
 
-    await Event.insertMany(newEvents);
+    if (newEvents.length > 0) {
+      await Event.insertMany(newEvents);
+    }
 
-    //pdate the employee with new availability and other fields
-    const updatedEmployee = await Employee.findByIdAndUpdate(req.params.id, req.body, { new: true });
-
-    res.json(updatedEmployee);
+    // Update the employee with new availability and other fields
+    employee.availability = availability; 
+    await employee.save(); 
+    res.json(employee); 
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 });
+
 
 // DELETE request to delete an employee
 router.delete('/:id', async (req, res) => {
