@@ -34,29 +34,6 @@ export default function Home() {
                     <img src={illustration} alt="Placeholder" />
                 </div>
             </div>
-
-
-            <div className="featureSection">
-                <Feature
-                    borderColor="#EF4444"
-                    title="Zero Cost, Full Control"
-                    description="Empower your scheduling at no cost. 'Shift Happens' is completely free, offering you all the smart scheduling tools without the price tag."
-                    iconUrl="https://via.placeholder.com/60x60"
-                />
-                <Feature
-                    borderColor="#EAB308"
-                    title="Auto-Scheduling with a Click"
-                    description="Create your team, set their availability, and let 'Shift Happens' auto-fill the calendar for you. It’s scheduling made smart and simple."
-                    iconUrl="https://via.placeholder.com/60x60"
-                    additionalImageUrl="https://via.placeholder.com/100x100"
-                />
-                <Feature
-                    borderColor="#2563EB"
-                    title="Instant Conflict Detection"
-                    description="Schedule with confidence. Our real-time conflict detection ensures you’re always staffed just right, avoiding over or understaffing pitfalls."
-                    iconUrl="https://via.placeholder.com/60x60"
-                />
-            </div>
         </>
     )
 }
