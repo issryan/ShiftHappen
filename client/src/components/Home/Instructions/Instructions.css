@@ -1,0 +1,42 @@
+.instructions-team {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px 10%;
+    background: linear-gradient(359deg, #F1F5F9 -33.17%, #F1F5F9 -33.16%, #FFF 113.56%);
+    gap: 30px;
+}
+
+.team-table-image img {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.instructions {
+    max-width: 600px;
+}
+
+.instructions h2 {
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.instructions ol {
+    list-style-position: inside;
+}
+
+.instructions li {
+    margin-bottom: 20px;
+}
+
+.instructions h3 {
+    color: #0056b3;
+    margin-bottom: 10px;
+}
+
+.instructions p {
+    color: #666;
+    line-height: 1.5;
+}

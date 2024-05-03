@@ -1,9 +1,11 @@
 .navbar {
   display: flex;
-  width: 1440px;
+  width: 100%;
   padding: 24px;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; 
+  box-sizing: border-box; 
 }
 
 .logo {
@@ -15,16 +17,11 @@
   word-wrap: break-word;
 }
 
-.navBar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
 .sitemap {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap; 
+  justify-content: center;
 }
 
 .navLink {
@@ -35,15 +32,19 @@
   line-height: 24px;
   letter-spacing: 0.50px;
   padding: 12px 8px;
-  text-decoration: none; 
+  text-decoration: none;
+  box-sizing: border-box; 
 }
 
 .buttonsContainer {
   display: flex;
   gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-.loginButton, .getStartedButton {
+.loginButton,
+.getStartedButton {
   padding: 12px 16px;
   border-radius: 8px;
   font-size: 16px;
@@ -63,4 +64,27 @@
   background: #2563EB;
   color: white;
   border: none;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .sitemap, .buttonsContainer {
+      justify-content: flex-start;
+      width: 100%;
+  }
+
+  .navLink {
+      padding: 12px 0; 
+  }
+
+  .buttonsContainer {
+      justify-content: center;
+      gap: 8px;
+      margin-top: 12px;
+  }
 }

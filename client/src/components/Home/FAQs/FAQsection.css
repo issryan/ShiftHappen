@@ -1,0 +1,10 @@
+.faq-section {
+    padding: 50px 10%;
+    background-color: #fff;
+}
+
+.faq-section h2 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}

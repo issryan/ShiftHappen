@@ -1,0 +1,38 @@
+.calendar-display {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 50px 10%;
+    background-color: #ffffff;
+}
+
+.calendar-image img {
+    height: 550px;
+    width: Auto; 
+    max-width: 400px;
+}
+
+.calendar-features {
+    margin-left: 20px;
+}
+
+.calendar-features h2 {
+    color: #0056b3;
+    margin-bottom: 20px;
+}
+
+.calendar-features p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.calendar-features ul {
+    list-style: none;
+}
+
+.calendar-features li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}

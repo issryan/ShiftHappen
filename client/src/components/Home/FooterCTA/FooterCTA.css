@@ -1,0 +1,40 @@
+.footer-cta {
+    text-align: center;
+    padding: 50px 0;
+    background: linear-gradient(180deg, #EBECED 0%, #FFF 86.25%);
+    height: 494.131px;
+    flex-shrink: 0;
+}
+
+.footer-cta h2 {
+    height: 61.766px;
+    flex-shrink: 0;
+
+    color: #000;
+    text-align: center;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 60px;
+}
+
+.footer-cta p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+}

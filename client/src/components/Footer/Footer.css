@@ -1,68 +1,54 @@
 .footer {
-  position:inherit;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  background: var(--copilot_vivian_com__1440x810_default-Nero, #FFF);
   padding: 20px;
-  background-color: hsl(247, 29%, 6%, 5%);
-}
-
-.footer-logo img {
-  width: 100px;
 }
 
 .footer-content {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-.site-map,
-.social-links {
-  margin: 0 20px;
+.footer-left,
+.footer-center,
+.footer-right {
+  flex: 1;
+  text-align: center;
 }
 
-.site-map ul,
-.social-links a {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  line-height: 1.5;
+.footer-left {
+  text-align: left;
 }
 
-.site-map li a,
-.social-links a {
-  text-decoration: none;
+.footer-right {
+  text-align: right;
+}
+
+.footer h3 {
   color: #000;
-  font-size: 0.9rem;
+
+  /* Heading/5 */
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 110%;
+  /* 35.2px */
 }
 
-.site-map li a:hover,
-.social-links a:hover {
-  text-decoration: underline;
+.footer p {
+  margin: 0;
+  color: #666;
 }
 
-.site-map h4,
-.social-links h4 {
-  margin-bottom: 10px;
-  font-size: 1rem;
+.social-icon {
+  margin-left: 10px;
+  color: #333;
+  font-size: 24px;
+  text-decoration: none;
 }
 
-@media (max-width: 768px) {
-  .footer {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-content {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .site-map,
-  .social-links {
-    margin: 10px 0;
-  }
+.social-icon:hover {
+  color: #0056b3;
 }
