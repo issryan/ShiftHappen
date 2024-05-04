@@ -8,14 +8,10 @@
     /* Typography */
     --font-color-primary: var(--text);
     --font-color-secondary: var(--background);
-
-    /* Spacing and layout */
-    --spacing-unit: 1rem;
 }
 
 body {
     color: var(--text);
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    padding: var(--spacing-unit);
 }
