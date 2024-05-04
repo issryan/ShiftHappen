@@ -67,14 +67,15 @@
 
 .btn-get-started:hover {
   background-color: #0056b3;
+  transition: ease-in 0.3s;
 }
 
 .btn-learn-more {
   background-color: transparent;
   color: #007BFF;
-  border: 1px solid #007BFF;
 }
 
 .btn-learn-more:hover {
   background-color: #f0f0f0;
+  transition: ease-in 0.3s;
 }

@@ -56,14 +56,25 @@
 }
 
 .loginButton {
-  background: transparent;
-  color: #2563EB;
+  background-color: transparent;
+  color: #007BFF;
 }
 
+.loginButton:hover {
+  background-color: #f0f0f0;
+  transition: ease-in 0.3s;
+}
+
+
 .getStartedButton {
-  background: #2563EB;
+  background-color: #007BFF;
   color: white;
   border: none;
+}
+
+.getStartedButton:hover {
+  background-color: #0056b3;
+  transition: ease-in 0.3s;
 }
 
 /* Media Queries for Responsive Design */
