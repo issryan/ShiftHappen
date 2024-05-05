@@ -11,9 +11,12 @@
 }
 
 .faq-question h3 {
-    font-size: 18px;
-    color: #0056b3;
-    margin: 0;
+    color: var(--Blue-600, #2563EB);
+
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
 }
 
 .toggle-button {
@@ -24,8 +27,10 @@
 }
 
 .faq-answer {
-    font-size: 16px;
-    color: #333;
-    margin-top: 10px;
-    padding-left: 10px;
+    color: var(--Blue-Gray-900, #0F172A);
+
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 160%;
 }
