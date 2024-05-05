@@ -16,8 +16,8 @@ function Home() {
             <Nav/>
             <Hero/>
             <Features/>
+            <section id="instructions-section"><Instructions/></section>
             <ToolsInfo/>
-            <Instructions/>
             <FAQSection/>
             <FooterCTA/>
             <Footer/>
