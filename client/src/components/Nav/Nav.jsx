@@ -1,7 +1,18 @@
 import React from 'react';
 import './Nav.css';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  let navigate = useNavigate();
+
+    const loginNavigate = () => {
+        navigate('/login');
+    };
+
+    const signupNavigate = () => {
+      navigate("/signup");
+    };
+
   return (
     <nav className="navbar">
       <div className="logo">Shift Happens</div>
@@ -13,8 +24,8 @@ const Navbar = () => {
       </div>
 
       <div className="buttonsContainer">
-        <button className="loginButton">Log In</button>
-        <button className="getStartedButton">Get Started</button>
+        <button className="loginButton" onClick={loginNavigate}>Log In</button>
+        <button className="getStartedButton" onClick={signupNavigate}>Get Started</button>
       </div>
     </nav>
   );

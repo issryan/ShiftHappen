@@ -1,16 +1,22 @@
 import React from 'react';
 import './FooterCTA.css';
+import { useNavigate } from 'react-router-dom';
 
 function FooterCTA() {
-    return (
-        <section className="footer-cta">
-            <h2>Ready to get started?</h2>
-            <p>Take the first step towards effortless scheduling.</p>
-            <div className='btn-container'>
-            <button className="cta-button">Launch Your Schedule</button>
-            </div>
-        </section>
-    );
-}
+        let navigate = useNavigate();
+        const signupNavigate = () => {
+            navigate("/signup");
+        };
 
-export default FooterCTA;
+        return (
+            <section className="footer-cta">
+                <h2>Ready to get started?</h2>
+                <p>Take the first step towards effortless scheduling.</p>
+                <div className='btn-container'>
+                    <button className="cta-button" onClick={signupNavigate}>Launch Your Schedule</button>
+                </div>
+            </section>
+        );
+    }
+
+    export default FooterCTA;
