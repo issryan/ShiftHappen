@@ -1,5 +1,5 @@
 import React from 'react';
-import Nav from '../components/Nav/Nav.jsx'
+import Nav from '../components/sideBar/sideBar.jsx';
 import MyCalendar from '../components/Calendar/Calendar.jsx';
 
 const Calendar = () => {
