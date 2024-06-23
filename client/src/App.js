@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import Home from './pages/Home/Home'
-import MyCalendar from './pages/Schedule'
+import MyCalendar from './pages/Schedule/Schedule'
 import Employees from './pages/Employee/Employees'
 import SignUp from './pages/Login/SignUp'
 import Login from './pages/Login/Login'
