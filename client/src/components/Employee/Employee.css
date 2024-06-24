@@ -1,0 +1,273 @@
+/* Style for the buttons container */
+.action-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.edit-btn {
+    background-color: rgb(251, 251, 140);
+    border: black 5px;
+}
+
+.edit-btn:hover {
+    background-color: rgb(227, 227, 127);
+    border: black 5px;
+    transition: ease-in-out .2s;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: black 5px;
+}
+
+.delete-btn:hover {
+    background-color: rgb(221, 0, 0);
+    color: white;
+    border: black 5px;
+    transition: ease-in-out .2s;
+}
+
+button {
+    padding: 5px 10px;
+    margin: 4px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.button-container {
+    display: flex;
+    margin-bottom: 20px;
+    justify-content: center;
+    padding-top: 25px;
+}
+
+.button {
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.button:hover {
+    color: #ffd45e;
+    transition: ease-in-out 0.2s;
+}
+
+.button-create {
+    background: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.button-create:hover {
+    color: #ffd45e;
+    transition: ease-in-out 0.2s;
+}
+
+
+
+/* Modal Styling */
+.modal-portal {
+    z-index: 9999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-form {
+    background-color: rgb(243, 241, 241);
+    padding: 40px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.modal-input {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 16px;
+    background: transparent;
+    width: auto;
+}
+
+.modal-button {
+    display: block;
+    width: 100%;
+    margin: 20px auto 0;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #0077FF;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-button:hover {
+    background-color: #0066CC;
+    transition: ease-in-out all .2s;
+}
+
+.modal-button-close {
+    display: block;
+    width: 100%;
+    margin: 20px auto 0;
+    padding: 8px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+}
+
+.modal-button-close:hover {
+    background-color: #575f66;
+    transition: ease-in-out all .2s;
+}
+
+.name-inputs{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: stretch;
+}
+
+/*Weekday selector styling */
+
+.weekDays-selector {
+    display: flex;
+    padding: inherit;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.weekDays-selector input:hover+label {
+    background-color: #bdbaba;
+    color: white;
+    transition: ease-in-out all .2s;
+}
+
+.weekDays-selector input {
+    display: none !important;
+}
+
+.weekDays-selector label {
+    display: inline-block;
+    border-radius: 6px;
+    background: #e4e3e3;
+    height: 40px;
+    width: 40px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.weekDays-selector input[type=checkbox]:checked+label {
+    background: #2AD705;
+    color: #ffffff;
+}
+
+/*Table Styling*/
+
+.body-container {
+    padding-top: 100px;
+    font-family: Poppins, sans-serif;
+    margin: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-widget {
+    border-radius: 1rem;
+    background: #29263D;
+    padding: 1.5rem;
+    text-align: left;
+    overflow-x: auto;
+    user-select: none;
+    color: #ffffff;
+}
+
+.table-widget table {
+    max-width: fit-content;
+    border-collapse: collapse;
+}
+
+.table-widget thead tr {
+    background: #2E2B43;
+}
+
+.table-widget .caption {
+    display: flex;
+    justify-content: space-between;
+}
+
+.table-widget .export-btn {
+    background: none;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.table-widget .export-btn:hover {
+    color: #ffd45e;
+}
+
+.table-widget .export-btn svg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.table-widget th {
+    padding: 1.25rem 1rem;
+    font-size: 1.05rem;
+    font-weight: 800;
+    vertical-align: middle;
+}
+
+.table-widget td {
+    padding: 1rem;
+    background: transparent;
+    color: white;
+    vertical-align: middle;
+}
+
+.table-widget tbody tr {
+    transition: all 0.2s;
+}
+
+.table-widget tbody tr:hover {
+    cursor: pointer;
+    background: #2e2b43;
+}
