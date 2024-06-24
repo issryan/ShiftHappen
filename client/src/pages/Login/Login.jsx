@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import './Login.css';
 
 function Login() {
@@ -20,8 +20,16 @@ function Login() {
         }
     };
 
-    const handleGoogleSuccess = (response) => {
-        console.log('Google sign in success:', response);
+    const handleGoogleSuccess = (credentialResponse) => {
+        console.log('Google sign in success:', credentialResponse);
+        // Send the token to your server for verification and login
+        axios.post('/api/auth/google-login', {
+            token: credentialResponse.credential
+        }).then(response => {
+            console.log('Google login success:', response.data);
+        }).catch(error => {
+            console.error('Google login error:', error.response ? error.response.data : 'Error');
+        });
     };
 
     const handleGoogleFailure = (error) => {
@@ -29,41 +37,41 @@ function Login() {
     };
 
     return (
-        <div className="signup-wrapper">
-            <div className="signup-container">
-                <h2>Log In</h2>
-                <p>Don’t have an account? <a href="/signup">Sign Up</a></p>
-                <form onSubmit={handleLogin}>
-                    <div className="form-group">
-                        <input
-                            type="email"
-                            placeholder="Email Address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <input
-                            type="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="submit-btn">Log In</button>
-                </form>
-                <GoogleLogin
-                    clientId=" " 
-                    buttonText="Continue with Google"
-                    onSuccess={handleGoogleSuccess}
-                    onFailure={handleGoogleFailure}
-                    cookiePolicy={'single_host_origin'}
-                    className="google-login-btn"
-                />
+        <GoogleOAuthProvider clientId="YOUR_CLIENT_ID">
+            <div className="signup-wrapper">
+                <div className="signup-container">
+                    <h2>Log In</h2>
+                    <p>Don’t have an account? <a href="/signup">Sign Up</a></p>
+                    <form onSubmit={handleLogin}>
+                        <div className="form-group">
+                            <input
+                                type="email"
+                                placeholder="Email Address"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <div className="form-group">
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                        </div>
+                        <button type="submit" className="submit-btn">Log In</button>
+                    </form>
+                    <GoogleLogin
+                        onSuccess={handleGoogleSuccess}
+                        onError={handleGoogleFailure}
+                        useOneTap
+                        className="google-login-btn"
+                    />
+                </div>
             </div>
-        </div>
+        </GoogleOAuthProvider>
     );
 }
 
