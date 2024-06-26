@@ -1,6 +1,5 @@
 import React from 'react';
-import { FaUserFriends, FaBriefcase, FaCloudDownloadAlt, FaCog } from 'react-icons/fa';
-import './sideBar.css';
+import { IconDashboard, IconUsers,IconCalendarMonth, IconCloudUpload, IconSettings } from '@tabler/icons-react';import './sideBar.css';
 import logo from './../../assets/shift-logo.png'
 
 
@@ -11,10 +10,11 @@ function Sidebar() {
         <img src={logo} alt="Logo" />
       </div>
       <div className="sidebar-menu">
-        <button className="menu-item"><FaUserFriends /></button>
-        <button className="menu-item"><FaBriefcase /></button>
-        <button className="menu-item"><FaCloudDownloadAlt /></button>
-        <button className="menu-item"><FaCog /></button>
+        <button className="menu-item"><IconDashboard /></button>
+        <button className="menu-item"><IconUsers /></button>
+        <button className="menu-item"><IconCalendarMonth /></button>
+        <button className="menu-item"><IconCloudUpload /></button>
+        <button className="menu-item"><IconSettings /></button>
       </div>
     </div>
   );
