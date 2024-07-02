@@ -30,3 +30,11 @@
   .menu-item:hover {
     background-color: #f0f0f0; 
   }  
+
+  .logo2{
+    color: #2563EB;
+    font-family: Roboto, sans-serif;
+    word-wrap: normal;
+    font-size: medium;
+    text-align: center;
+  }

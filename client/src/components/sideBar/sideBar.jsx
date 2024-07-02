@@ -1,20 +1,22 @@
 import React from 'react';
-import { IconDashboard, IconUsers,IconCalendarMonth, IconCloudUpload, IconSettings } from '@tabler/icons-react';import './sideBar.css';
+import { useNavigate } from 'react-router-dom';
+import { IconDashboard, IconUsers, IconCalendarMonth, IconCloudUpload, IconSettings } from '@tabler/icons-react'; import './sideBar.css';
 import logo from './../../assets/shift-logo.png'
 
 
 function Sidebar() {
+  const navigate = useNavigate();
   return (
     <div className="sidebar">
       <div className="sidebar-logo">
-        <img src={logo} alt="Logo" />
+        <h1 className='logo2'>SHIFT HAPPENS</h1>
       </div>
       <div className="sidebar-menu">
-        <button className="menu-item"><IconDashboard /></button>
-        <button className="menu-item"><IconUsers /></button>
-        <button className="menu-item"><IconCalendarMonth /></button>
-        <button className="menu-item"><IconCloudUpload /></button>
-        <button className="menu-item"><IconSettings /></button>
+        <button className="menu-item" onClick={() => navigate('/dashboard')}><IconDashboard /></button>
+        <button className="menu-item" onClick={() => navigate('/employees')}><IconUsers /></button>
+        <button className="menu-item" onClick={() => navigate('/schedule')}><IconCalendarMonth /></button>
+        <button className="menu-item" onClick={() => navigate('/upload')}><IconCloudUpload /></button>
+        <button className="menu-item" onClick={() => navigate('/settings')}><IconSettings /></button>
       </div>
     </div>
   );
