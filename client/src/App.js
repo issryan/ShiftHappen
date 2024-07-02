@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom'
 import Home from './pages/Home/Home'
+import Dashboard from './pages/Admin/Admin'
 import MyCalendar from './pages/Schedule/Schedule'
 import Employees from './pages/Employee/Employee'
 import SignUp from './pages/Login/SignUp'
@@ -15,6 +16,7 @@ export default function App() {
           <Routes>
             <Route index element={<Home />} />
             <Route path="/home" element={<Home/>} />
+            <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/schedule" element={<MyCalendar/>} />
             <Route path="/employees" element={<Employees />} />
             <Route path="/signup" element={<SignUp />} />

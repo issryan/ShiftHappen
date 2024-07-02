@@ -3,7 +3,7 @@ import Employee from '../../components/Employee/Employees.jsx';
 import Sidebar from '../../components/sideBar/sideBar.jsx';
 import "./Employee.css"
 
-const Calendar = () => {
+const Employees = () => {
   return (
      <div className="app-container">
       <Sidebar />
@@ -16,4 +16,4 @@ const Calendar = () => {
   );
 }
 
-export default Calendar;
+export default Employees;

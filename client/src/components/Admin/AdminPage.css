@@ -1,0 +1,33 @@
+.admin-page {
+    padding: 20px;
+  }
+  
+  .admin-header {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+  }
+  
+  .admin-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    cursor: pointer;
+    flex: 1;
+    margin: 10px;
+  }
+  
+  .admin-button {
+    background: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .admin-button:hover {
+    background: #0056b3;
+  }
