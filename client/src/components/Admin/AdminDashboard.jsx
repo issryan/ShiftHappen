@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AdminPage.css';
+import './AdminDashboard.css';
 
-const AdminPage = () => {
+const AdminDashboard = () => {
   const navigate = useNavigate();
 
   return (
@@ -28,4 +28,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default AdminDashboard;

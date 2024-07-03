@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminPage from '../../components/Admin/AdminPage.jsx';
+import AdminPage from '../../components/Admin/AdminDashboard.jsx';
 import Sidebar from '../../components/sideBar/sideBar.jsx';
 
 const Admin = () => {
