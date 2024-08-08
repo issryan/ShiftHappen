@@ -2,17 +2,18 @@ const express = require('express');
 const router = express.Router();
 const Employee = require('../models/Employee');
 const Event = require('../models/Events');
-
+const StaffingRequirements = require('../models/StaffingRequirements');
 
 // Helper function to calculate event dates
-const calculateEventDates = (availability) => {
+const calculateEventDates = (availability, months) => {
   const today = new Date();
   const events = [];
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const weeks = months * 4; // Approximate 4 weeks per month
 
   daysOfWeek.forEach((day, index) => {
     if (availability[day]) {
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; i < weeks; i++) {
         let eventDate = new Date(today);
         eventDate.setDate(today.getDate() + ((index - today.getDay() + 7) % 7) + i * 7);
         events.push(eventDate);
@@ -22,7 +23,66 @@ const calculateEventDates = (availability) => {
 
   return events;
 };
-//function if user changes availability => updates events on calendar
+
+// Function to generate schedule based on availability and staffing requirements
+const generateSchedule = async (months) => {
+  const employees = await Employee.find();
+  const requirements = await StaffingRequirements.find();
+  const schedule = [];
+
+  requirements.forEach(requirement => {
+    const availableEmployees = employees.filter(employee => employee.availability[requirement.day] && employee.status === 'available');
+    const eventDates = calculateEventDates({ [requirement.day]: true }, months);
+
+    eventDates.forEach(date => {
+      if (availableEmployees.length < requirement.requiredEmployees) {
+        schedule.push({
+          day: requirement.day,
+          date,
+          status: 'understaffed',
+          required: requirement.requiredEmployees,
+          available: availableEmployees.length
+        });
+      } else if (availableEmployees.length > requirement.requiredEmployees) {
+        schedule.push({
+          day: requirement.day,
+          date,
+          status: 'overstaffed',
+          required: requirement.requiredEmployees,
+          available: availableEmployees.length
+        });
+      } else {
+        schedule.push({
+          day: requirement.day,
+          date,
+          status: 'adequate',
+          required: requirement.requiredEmployees,
+          available: availableEmployees.length
+        });
+      }
+    });
+  });
+
+  return schedule;
+};
+
+// Route to generate schedule
+router.post('/generate-schedule', async (req, res) => {
+  const { months } = req.body;
+
+  if (!months || months < 1) {
+    return res.status(400).json({ message: 'Invalid number of months' });
+  }
+
+  try {
+    const schedule = await generateSchedule(months);
+    res.status(200).json(schedule);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Compare availabilities to determine changes
 const compareAvailabilities = (oldAvailability, newAvailability) => {
   const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   let addedDays = [];
@@ -42,7 +102,6 @@ const compareAvailabilities = (oldAvailability, newAvailability) => {
   return { addedDays, removedDays };
 };
 
-
 // GET request for all employees
 router.get('/', async (req, res) => {
   try {
@@ -60,7 +119,7 @@ router.post('/', async (req, res) => {
 
   try {
     await employee.save(); // Save the new employee
-    const eventDates = calculateEventDates(availability);
+    const eventDates = calculateEventDates(availability, 1); // Default to 1 month
 
     // Create event objects
     const events = eventDates.map(date => ({
@@ -103,7 +162,7 @@ router.put('/:id', async (req, res) => {
     const existingEventDates = existingEvents.map(event => event.start.toISOString().split('T')[0]);
 
     // Handle added days and create new events for these days if they don't already exist
-    const newEventDates = calculateEventDates(availability).filter(date => {
+    const newEventDates = calculateEventDates(availability, 1).filter(date => { // Default to 1 month
       const isoDate = date.toISOString().split('T')[0];
       return !existingEventDates.includes(isoDate); // Filter out dates that already have events
     });
@@ -128,7 +187,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-
 // DELETE request to delete an employee
 router.delete('/:id', async (req, res) => {
   try {
@@ -146,9 +204,8 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ message: 'Employee and associated events deleted successfully' });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    (res.status500).json({ message: error.message });
   }
 });
-
 
 module.exports = router;
