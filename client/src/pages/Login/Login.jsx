@@ -14,6 +14,7 @@ function Login() {
                 email,
                 password
             });
+            localStorage.setItem('token', response.data.token);
             console.log('Login success:', response.data);
         } catch (error) {
             console.error('Login error:', error.response ? error.response.data : 'Error');
@@ -22,10 +23,10 @@ function Login() {
 
     const handleGoogleSuccess = (credentialResponse) => {
         console.log('Google sign in success:', credentialResponse);
-        // Send the token to your server for verification and login
         axios.post('/api/auth/google-login', {
             token: credentialResponse.credential
         }).then(response => {
+            localStorage.setItem('token', response.data.token);
             console.log('Google login success:', response.data);
         }).catch(error => {
             console.error('Google login error:', error.response ? error.response.data : 'Error');
@@ -37,7 +38,7 @@ function Login() {
     };
 
     return (
-        <GoogleOAuthProvider clientId="YOUR_CLIENT_ID">
+        <GoogleOAuthProvider clientId="911284722127-14sd362a81ncfmq8e42qrhoo897dt737.apps.googleusercontent.com">
             <div className="signup-wrapper">
                 <div className="signup-container">
                     <h2>Log In</h2>

@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const employeeRoutes = require('./routes/employeeRoutes');
 const eventRoutes = require('./routes/eventRoutes');
-const staffingRequirementsRoutes = require('./routes/staffingRequirementsRoutes'); // New import
+const staffingRequirementsRoutes = require('./routes/staffingRequirementsRoutes'); 
 const authRoutes = require('./routes/auth/authRoutes'); 
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(express.json());
 // ROUTES
 app.use('/api/employees', employeeRoutes);
 app.use('/api/events', eventRoutes);
-app.use('/api/staffing-requirements', staffingRequirementsRoutes); // New route
+app.use('/api/staffing-requirements', staffingRequirementsRoutes); 
 app.use('/api/auth', authRoutes); 
 
 const PORT = process.env.PORT || 5001;

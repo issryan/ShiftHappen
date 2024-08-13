@@ -22,10 +22,12 @@ function SignUp() {
 
     const handleGoogleSuccess = (credentialResponse) => {
         console.log('Google sign in success:', credentialResponse);
-        // Send the token to your server for verification and sign up
         axios.post('/api/auth/google-register', {
-            token: credentialResponse.credential
+            token: credentialResponse
+
+                .credential
         }).then(response => {
+            localStorage.setItem('token', response.data.token);
             console.log('Google registration success:', response.data);
         }).catch(error => {
             console.error('Google registration error:', error.response ? error.response.data : 'Error');
@@ -37,7 +39,7 @@ function SignUp() {
     };
 
     return (
-        <GoogleOAuthProvider clientId="YOUR_CLIENT_ID">
+        <GoogleOAuthProvider clientId="911284722127-14sd362a81ncfmq8e42qrhoo897dt737.apps.googleusercontent.com">
             <div className="signup-wrapper">
                 <div className="signup-container">
                     <h2>Create an Account</h2>
